@@ -15,6 +15,7 @@
 | 05 | [ROS软件系统分析](./05_ROS软件系统分析.md) | Catkin 工作空间、功能包结构、话题与服务、TF 变换、SLAM/导航配置 |
 | 06 | [机械设计分析](./06_机械设计分析.md) | 机械架构、层板设计、底盘设计、驱动系统、装配关系、制造文件 |
 | 07 | [项目部署指南](./07_项目部署指南.md) | 环境准备、项目构建、硬件组装、固件烧录、软件配置、调试排错 |
+| 08 | [STM32核心系统技术文档](./08_STM32核心系统技术文档.md) | **以STM32为核心**：硬件接口、固件架构、外设驱动、ROS通信、运动学模型 |
 
 ## 项目快速导航
 
@@ -54,16 +55,23 @@ PIFBot/
 ├── LICENSE                      # MIT 许可证
 ├── assets/demo/                 # 演示资源
 │   └── openSTM32F4_LQFP64.pdf   # 控制板原理图
-├── firmware/                    # 固件代码 (Git Submodule)
+├── firmware/                    # 固件代码
 │   └── ros-stm32-base-control/
-├── hardware/                    # 硬件设计 (Git Submodule)
-│   └── openSTM32F4_LQHP64/
+│       ├── Core/                # STM32 外设配置
+│       ├── HwIntf/              # 硬件接口层
+│       ├── ros-base-control-fw/ # 底盘控制核心
+│       └── rosserial_stm32/     # rosserial 库
+├── hardware/                    # 硬件设计
+│   └── openSTM32F4_LQFP64/
+│       ├── *.sch                # KiCad 原理图
+│       ├── *.kicad_pcb          # PCB 设计
+│       └── assets/gerber/       # Gerber 生产文件
 ├── mechanical/                  # 机械设计
 │   ├── *.FCStd                  # FreeCAD 设计文件
 │   ├── assembly/                # 装配模型
 │   └── assets/dxf/              # DXF 切割文件
 ├── ros/                         # ROS 工作空间
-│   └── src/ros-slam-nav/        # ROS 包 (Git Submodule)
+│   └── src/ros-slam-nav/        # ROS 包
 └── qijiedocs/                   # 技术文档 (本目录)
 ```
 
@@ -75,14 +83,15 @@ PIFBot/
 
 ## 使用说明
 
-1. 阅读顺序建议：01 → 02 → 03/04/05/06 → 07
-2. 实际部署前请先初始化 Git 子模块：`git submodule update --init --recursive`
-3. 各文档中包含的配置参数和代码片段仅供参考，实际使用时需根据具体环境调整
+1. 阅读顺序建议：01 → 02 → 03/04/05/06 → 07 → 08
+2. 如需深入了解 STM32 核心，重点阅读文档 08
+3. 实际部署前请先初始化 Git 子模块：`git submodule update --init --recursive`
+4. 各文档中包含的配置参数和代码片段仅供参考，实际使用时需根据具体环境调整
 
 ## 相关链接
 
 - **项目仓库**: https://github.com/phonght32/PIFBot
-- **OpenSTM32 仓库**: https://github.com/phonght32/openSTM32F4_LQHP64
-- **STM-IDF 框架**: https://github.com/phonght32/stm-idf
+- **OpenSTM32 仓库**: https://github.com/phonght32/openSTM32F4_LQFP64
+- **固件仓库**: https://github.com/phonght32/ros-stm32-base-control
 - **ROS Wiki**: http://wiki.ros.org/kinetic
 - **演示视频**: https://youtu.be/UWhPCQyU918
